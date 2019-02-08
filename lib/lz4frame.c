@@ -1075,8 +1075,10 @@ static size_t LZ4F_headerSize(const void* src, size_t srcSize)
     if ((LZ4F_readLE32(src) & 0xFFFFFFF0U) == LZ4F_MAGIC_SKIPPABLE_START) return 8;
 
     /* control magic number */
-    if (LZ4F_readLE32(src) != LZ4F_MAGICNUMBER)
-        return err0r(LZ4F_ERROR_frameType_unknown);
+    printf("Magic number constant: %08X\n", LZ4F_MAGICNUMBER);
+    U32 magic = LZ4F_readLE32(src);
+    printf("Magic number received: %08X\n", magic);
+    if (magic != LZ4F_MAGICNUMBER) return err0r(LZ4F_ERROR_frameType_unknown);
 
     /* Frame Header Size */
     {   BYTE const FLG = ((const BYTE*)src)[4];
